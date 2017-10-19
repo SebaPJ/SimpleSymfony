@@ -5,16 +5,22 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table(name="phones")
+ * @ORM\Table(name="memories")
  * @ORM\Entity()
  */
-class Phone extends RememberEntity
+class Memory extends AbstractEntity
 {
     /**
      * @ORM\Column(type="string", length=255)
-     * @var string $number
+     * @var string $name
      */
-    private $number;
+    private $name;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @var string $description
+     */
+    private $description;
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Contact")
@@ -26,24 +32,41 @@ class Phone extends RememberEntity
 
     public function __construct()
     {
-        $this->number = '';
+        $this->name = '';
+        $this->description = '';
         $this->contact = null;
     }
 
     /**
      * @return string
      */
-    public function getNumber(): string
+    public function getName(): string
     {
-        return $this->number;
+        return $this->name;
     }
 
     /**
-     * @param string $number
+     * @param string $name
      */
-    public function setNumber(string $number)
+    public function setName(string $name)
     {
-        $this->number = $number;
+        $this->name = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription(string $description)
+    {
+        $this->description = $description;
     }
 
     /**

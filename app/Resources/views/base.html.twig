@@ -42,7 +42,7 @@
     <body class="hold-transition skin-black-light sidebar-mini sidebar-collapse">
         <div class="wrapper">
             <header class="main-header">
-                <a href="{{ path('contacts') }}" class="logo">
+                <a href="{{ path('contacts-list') }}" class="logo">
                     <span class="logo-mini"><b>S</b>SP</span>
                     <span class="logo-lg"><b>S</b>imple<b>S</b>ymfony<b>P</b>roject</span>
                 </a>
@@ -55,21 +55,16 @@
             </header>
             <aside class="main-sidebar">
                 <section class="sidebar">
-                    {#<form action="{{ path('search') }}" method="get" class="sidebar-form">#}
-                        {#<div class="input-group">#}
-                            {#<input type="text" name="q" class="form-control" placeholder="Search...">#}
-                            {#<span class="input-group-btn">#}
-                                {#<button type="submit" name="search" id="search-btn" class="btn btn-flat">#}
-                                    {#<i class="fa fa-search"></i>#}
-                                {#</button>#}
-                            {#</span>#}
-                        {#</div>#}
-                    {#</form>#}
                     <ul class="sidebar-menu">
                         <li class="header">MAIN NAVIGATION</li>
-                        <li class="{% if app.request.attributes.get('_route') == 'contacts' %}active{% endif %}">
-                            <a href="{{ path('contacts') }}">
+                        <li class="{% if app.request.attributes.get('_route') == 'contacts-list' %}active{% endif %}">
+                            <a href="{{ path('contacts-list') }}">
                                 <i class="fa fa-home"></i> <span>Homepage</span>
+                            </a>
+                        </li>
+                        <li class="{% if app.request.attributes.get('_route') == 'contacts-edit' %}active{% endif %}">
+                            <a href="{{ path('contacts-edit') }}">
+                                <i class="fa fa-plus"></i> <span>Add contact</span>
                             </a>
                         </li>
                     </ul>

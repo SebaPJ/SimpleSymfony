@@ -3,10 +3,12 @@
 namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table(name="contacts")
+ * @ORM\Entity()
  */
 class Contact extends AbstractEntity
 {
@@ -24,19 +26,18 @@ class Contact extends AbstractEntity
 
     /**
      * One BusinessObject has Many Contact Persons.
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Email", mappedBy="contact", cascade={"remove", "merge"})
-     *
-     * @var ArrayCollection
-     */
-    private $emails;
-
-    /**
-     * One BusinessObject has Many Contact Persons.
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Phone", mappedBy="contact", cascade={"remove", "merge"})
      *
      * @var ArrayCollection
      */
     private $phones;
+
+    public function __construct()
+    {
+        $this->name = '';
+        $this->surname = '';
+        $this->phones = new ArrayCollection();
+    }
 
     /**
      * @return string
@@ -82,9 +83,9 @@ class Contact extends AbstractEntity
     }
 
     /**
-     * @return Phone[]|ArrayCollection
+     * @return Phone[]|ArrayCollection|Collection
      */
-    public function getPhones() : ArrayCollection
+    public function getPhones() : Collection
     {
         return $this->phones ?: $this->phones = new ArrayCollection();
     }
@@ -121,62 +122,6 @@ class Contact extends AbstractEntity
         $names = [];
         foreach ($this->getPhones() as $phone) {
             $names[] = $phone->getNumber();
-        }
-
-        return $names;
-    }
-
-    /**
-     * @param Email[]|ArrayCollection $emails
-     */
-    public function setEmails($emails)
-    {
-        $this->emails = new ArrayCollection();
-        foreach ($emails as $email) {
-            $this->emails->add($email);
-        }
-    }
-
-    /**
-     * @return Email[]|ArrayCollection
-     */
-    public function getEmails() : ArrayCollection
-    {
-        return $this->emails ?: $this->emails = new ArrayCollection();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function addEmail(Email $email) : Contact
-    {
-        if (!$this->getEmails()->contains($email)) {
-            $this->getEmails()->add($email);
-        }
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function removeEmail(Email $email) : Contact
-    {
-        if ($this->getEmails()->contains($email)) {
-            $this->getEmails()->removeElement($email);
-        }
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getEmailsAddresses() : array
-    {
-        $names = [];
-        foreach ($this->getEmails() as $email) {
-            $names[] = $email->getContent();
         }
 
         return $names;

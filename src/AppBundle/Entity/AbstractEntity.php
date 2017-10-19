@@ -4,9 +4,8 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-class AbstractEntity
+abstract class AbstractEntity
 {
-
     /**
      * @var integer
      *
